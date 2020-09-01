@@ -2,3 +2,5 @@
 /.vs/AcademyPatternsAndPractices/v16/*
 /AcademyPatternsAndPractices/bin/*
 /AcademyPatternsAndPractices/obj/*
+/AcademyPatternsAndPractices.Tests/bin/*
+/AcademyPatternsAndPractices.Tests/obj/*
