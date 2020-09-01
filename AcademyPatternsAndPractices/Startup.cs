@@ -1,3 +1,4 @@
+using AcademyPatternsAndPractices.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -19,6 +20,10 @@ namespace AcademyPatternsAndPractices
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddSingleton<IPromotionsCalculator, PromotionsCalculator>();
+            services.AddSingleton<IShippingCalculator, ShippingCalculator>();
+            services.AddSingleton<ITaxCalculator, TaxCalculator>();
+            services.AddSingleton<ITotalsCalculator, TotalsCalculator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

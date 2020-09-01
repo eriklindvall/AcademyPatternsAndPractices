@@ -3,13 +3,13 @@ using AcademyPatternsAndPractices.Models;
 
 namespace AcademyPatternsAndPractices.Services
 {
-    public class PromotionsCalculator
+    public class PromotionsCalculator : IPromotionsCalculator
     {
-        public static void CalculateTotalDiscount(Cart cart)
+        public decimal CalculateTotalDiscount(Cart cart)
         {
             //call various external services to calculate what promotions to apply, check coupons etc
             //dummy implementation: apply "3 for 2" exactly once if applicable
-            cart.Discount = cart.LineItems.FirstOrDefault(lineItem => lineItem.Count >= 3)?.UnitPrice ?? 0;
+            return cart.LineItems.FirstOrDefault(lineItem => lineItem.Count >= 3)?.UnitPrice ?? 0;
         }
     }
 }

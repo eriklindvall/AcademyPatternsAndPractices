@@ -7,6 +7,7 @@ namespace AcademyPatternsAndPractices.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly ITotalsCalculator _totalsCalculator;
         //dummy cart
         private readonly Cart _cart = new Cart()
         {
@@ -25,14 +26,14 @@ namespace AcademyPatternsAndPractices.Controllers
                 new LineItem() { SkuId = 1, Name = "Strumpor", Count = 3, UnitPrice = 49 }
             }
         };
-        public HomeController()
+        public HomeController(ITotalsCalculator totalsCalculator)
         {
-            
+            _totalsCalculator = totalsCalculator;
         }
 
         public IActionResult Index()
         {
-            TotalsCalculator.CalculateTotals(_cart);
+            _totalsCalculator.CalculateTotals(_cart);
             return Json(_cart);
         }
     }
