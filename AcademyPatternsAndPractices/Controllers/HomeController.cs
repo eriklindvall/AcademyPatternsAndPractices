@@ -32,8 +32,8 @@ namespace AcademyPatternsAndPractices.Controllers
 
         public IActionResult Index()
         {
-            var totalsCalculator = new TotalsCalculator();
-            totalsCalculator.CalculateTotals(_cart);
+            //var totalsCalculator = new TotalsCalculator();
+            //totalsCalculator.CalculateTotals(_cart);
             return Json(_cart);
         }
     }

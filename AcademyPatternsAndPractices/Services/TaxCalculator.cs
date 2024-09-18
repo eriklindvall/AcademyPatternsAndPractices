@@ -2,7 +2,7 @@
 
 namespace AcademyPatternsAndPractices.Services
 {
-    public class TaxCalculator
+    public class TaxCalculator : ITaxCalculator
     {
         public decimal CalculateTaxes(Cart cart)
         {

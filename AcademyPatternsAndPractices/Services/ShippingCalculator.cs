@@ -2,7 +2,7 @@
 
 namespace AcademyPatternsAndPractices.Services
 {
-    public class ShippingCalculator
+    public class ShippingCalculator : IShippingCalculator
     {
         public decimal CalculateShipping(Cart cart)
         {

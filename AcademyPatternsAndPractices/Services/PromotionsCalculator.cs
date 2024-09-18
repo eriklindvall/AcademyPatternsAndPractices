@@ -3,7 +3,7 @@ using AcademyPatternsAndPractices.Models;
 
 namespace AcademyPatternsAndPractices.Services
 {
-    public class PromotionsCalculator
+    public class PromotionsCalculator : IPromotionsCalculator
     {
         public decimal CalculateTotalDiscount(Cart cart)
         {

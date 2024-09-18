@@ -3,11 +3,19 @@ using AcademyPatternsAndPractices.Models;
 
 namespace AcademyPatternsAndPractices.Services
 {
-    public class TotalsCalculator
+    public class TotalsCalculator : ITotalsCalculator
     {
-        private readonly PromotionsCalculator _promotionsCalculator = new PromotionsCalculator();
-        private readonly ShippingCalculator _shippingCalculator = new ShippingCalculator();
-        private readonly TaxCalculator _taxCalculator = new TaxCalculator();
+        private readonly IPromotionsCalculator _promotionsCalculator;
+        private readonly IShippingCalculator _shippingCalculator;
+        private readonly ITaxCalculator _taxCalculator;
+
+        public TotalsCalculator(IPromotionsCalculator promotionsCalculator, IShippingCalculator shippingCalculator, ITaxCalculator taxCalculator)
+        {
+            _promotionsCalculator = promotionsCalculator;
+            _shippingCalculator = shippingCalculator;
+            _taxCalculator = taxCalculator;
+        }
+
         public void CalculateTotals(Cart cart)
         {
             cart.Discount = _promotionsCalculator.CalculateTotalDiscount(cart);

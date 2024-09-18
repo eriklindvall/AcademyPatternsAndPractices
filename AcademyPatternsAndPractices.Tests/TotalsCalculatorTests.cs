@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using AcademyPatternsAndPractices.Models;
 using AcademyPatternsAndPractices.Services;
+using FakeItEasy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace AcademyPatternsAndPractices.Tests
@@ -9,7 +10,7 @@ namespace AcademyPatternsAndPractices.Tests
     public class TotalsCalculatorTests
     {
         [TestMethod]
-        public void Test1()
+        public void Should_sum_line_items_correctly()
         {
             //Arrange
             Cart cart = new Cart()
@@ -25,17 +26,21 @@ namespace AcademyPatternsAndPractices.Tests
 
                 LineItems = new List<LineItem>()
                 {
-                    new LineItem() { SkuId = 1, Name = "T-shirt", Count = 1, UnitPrice = 159 },
-                    new LineItem() { SkuId = 1, Name = "Strumpor", Count = 3, UnitPrice = 49 }
+                    new LineItem() { SkuId = 1, Name = "T-shirt", Count = 1, UnitPrice = 150 },
+                    new LineItem() { SkuId = 1, Name = "Strumpor", Count = 3, UnitPrice = 5 }
                 }
-            }; 
-            var totalsCalculator = new TotalsCalculator();
+            };
+            var taxCalculator = A.Fake<ITaxCalculator>();
+            var shippingCalculator = A.Fake<IShippingCalculator>();
+            var promotionCalculator = A.Fake<IPromotionsCalculator>();
+            
+            var totalsCalculator = new TotalsCalculator(promotionCalculator, shippingCalculator, taxCalculator);
 
             //Act
             totalsCalculator.CalculateTotals(cart);
 
             //Assert
-            Assert.AreEqual(cart.TotalAmount, 208);
+            Assert.AreEqual(cart.TotalAmount, 165);
         }
     }
 }
