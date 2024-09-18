@@ -42,5 +42,41 @@ namespace AcademyPatternsAndPractices.Tests
             //Assert
             Assert.AreEqual(cart.TotalAmount, 165);
         }
+
+        [TestMethod]
+        public void Should_sum_line_items_with_tax_correctly()
+        {
+            //Arrange
+            Cart cart = new Cart()
+            {
+                Address = new Address()
+                {
+                    Name = "Test Testsson",
+                    AddressLine1 = "Testgatan 1",
+                    AddressLine2 = "",
+                    ZipCode = 12345,
+                    Country = "SE"
+                },
+
+                LineItems = new List<LineItem>()
+                {
+                    new LineItem() { SkuId = 1, Name = "T-shirt", Count = 1, UnitPrice = 150 },
+                    new LineItem() { SkuId = 1, Name = "Strumpor", Count = 3, UnitPrice = 5 }
+                }
+            };
+            var taxCalculator = A.Fake<ITaxCalculator>();
+            A.CallTo(() => taxCalculator.CalculateTaxes(A.Dummy<Cart>())).WithAnyArguments().Returns(25);
+
+            var shippingCalculator = A.Fake<IShippingCalculator>();
+            var promotionCalculator = A.Fake<IPromotionsCalculator>();
+
+            var totalsCalculator = new TotalsCalculator(promotionCalculator, shippingCalculator, taxCalculator);
+
+            //Act
+            totalsCalculator.CalculateTotals(cart);
+
+            //Assert
+            Assert.AreEqual(cart.TotalAmount, 190);
+        }
     }
 }
